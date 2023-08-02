@@ -20,7 +20,6 @@ function Quiz({ user, setUser }) {
   const navigate = useNavigate();
   // States
   const [playerTurn, setPlayerTurn] = useState(1);
-  const [loading, setLoading] = useState(true);
   const [quizQuestions, setQuizQuestions] = useState([]);
   const [questionState, setQuestionState] = useState({});
   const [answeredQuestions, setAnsweredQuestions] = useState([]);
@@ -112,7 +111,6 @@ function Quiz({ user, setUser }) {
         // console.log('data', data);
         setQuizQuestions(data);
         setNewGame(false);
-        setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching quiz questions:', error);
@@ -145,7 +143,6 @@ function Quiz({ user, setUser }) {
 
             {/* conditionally load based on user actions. Either loads quizboard, win, or the selected card */}
             <Routes>
-              {console.log('in routes', loading)}
               <Route
                 path="/"
                 element={(
