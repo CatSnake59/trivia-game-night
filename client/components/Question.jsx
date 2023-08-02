@@ -18,7 +18,7 @@ const shuffleArray = (array) => {
 };
 
 function Question({ question, handleAnswerClick, points }) {
-  const [play, { stop }] = useSound(jeopardyMusic, { volume: 0.10 });
+  const [play, { stop }] = useSound(jeopardyMusic, { volume: 0.1 });
 
   useEffect(() => {
     play();
@@ -44,7 +44,16 @@ function Question({ question, handleAnswerClick, points }) {
       <div className="question-container">
         <h1 className="question-title">{decodeHtml(question.question)}</h1>
         <div className="answer-container">
-          {answers.map((answer, i) => <button type="button" className="answer" key={i} onClick={() => handleAnswerClick(question, answer)}>{decodeHtml(answer)}</button>)}
+          {answers.map((answer, i) => (
+            <button
+              type="button"
+              className="answer"
+              key={i}
+              onClick={() => handleAnswerClick(question, answer)}
+            >
+              {decodeHtml(answer)}
+            </button>
+          ))}
         </div>
       </div>
     </>
