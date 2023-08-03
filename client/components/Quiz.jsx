@@ -130,21 +130,9 @@ function Quiz({ user, setUser }) {
         <h1 className='welcomeMessage'>Welcome, {user.username}!</h1>
       </header>
       <main>
-        <nav id='scoreboard'>
-          <div
-            className={
-              playerTurn === 1 ? 'scoreboard highlighted' : 'scoreboard'
-            }
-          >
-            <Scoreboard score={player1Score} playerNumber={1} />
-          </div>
-          <div
-            className={
-              playerTurn === 2 ? 'scoreboard highlighted' : 'scoreboard'
-            }
-          >
-            <Scoreboard score={player2Score} playerNumber={2} />
-          </div>
+        <nav id="scoreboard">
+          <Scoreboard score={player1Score} playerNumber={1} playerTurn={playerTurn} />
+          <Scoreboard score={player2Score} playerNumber={2} playerTurn={playerTurn} />
         </nav>
         {/* conditionally load based on user actions. Either loads quizboard, win, or the selected card */}
         <Routes>

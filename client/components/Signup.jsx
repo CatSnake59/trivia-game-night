@@ -14,16 +14,17 @@ export default function SignUp({ setLoggedIn }) {
     fetch('/log-in', {
       method: 'POST',
       headers: {
-        'Content-Type':
-        'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username, password,
+        username,
+        password,
       }),
     })
       .then((response) => {
         if (response.ok) {
-          response.json()
+          response
+            .json()
             .then((data) => {
               localStorage.setItem('triviaJwtToken', data.jwtToken);
               setLoggedIn(true);
@@ -39,16 +40,18 @@ export default function SignUp({ setLoggedIn }) {
     fetch('/sign-up', {
       method: 'POST',
       headers: {
-        'Content-Type':
-              'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username, password, location,
+        username,
+        password,
+        location,
       }),
     })
       .then((res) => {
         if (res.ok) {
-          res.json()
+          res
+            .json()
             .then((data) => {
               localStorage.setItem('triviaJwtToken', data.jwtToken);
               setLoggedIn(true);
@@ -62,7 +65,7 @@ export default function SignUp({ setLoggedIn }) {
 
   return (
     <div className="login">
-      <h1 className="logTitle">Goblin Sharks Trivia</h1>
+      <h1 className="logTitle">Cat Snakes Trivia</h1>
       <div>
         <input
           className="username"
@@ -82,7 +85,9 @@ export default function SignUp({ setLoggedIn }) {
         />
         <div>
           <button onClick={handleLogin}>Login</button>
-          <button className="createAcct" onClick={handleCreateAccount}>Create Account</button>
+          <button className="createAcct" onClick={handleCreateAccount}>
+            Create Account
+          </button>
         </div>
       </div>
     </div>
