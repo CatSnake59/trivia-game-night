@@ -140,7 +140,7 @@ function Quiz({ user, setUser }) {
         </nav>
         {/* conditionally load based on user actions. Either loads quizboard, win, or the selected card */}
         <Routes>
-          {console.log('in routes', loading)}
+          {/* {console.log('in routes', loading)} */}
           <Route
             path="/"
             element={
