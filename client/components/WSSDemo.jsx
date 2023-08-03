@@ -68,25 +68,41 @@ function ButtonTest({ wsUser }) {
   });
   const [ chosenColor, setChosenColor ] = useState('red');
   // let chosenColor = 'red';
+  useEffect(()=>{
+    console.log('lastJsonMessage Color', lastJsonMessage?lastJsonMessage.data.color:null);
+    console.log('useEffect color', chosenColor);
+    setChosenColor(lastJsonMessage?lastJsonMessage.data.color:chosenColor);
+
+  },[lastJsonMessage])
   
-  const handleClickSendMessage = () => {
-    (chosenColor === 'red') ? setChosenColor('green') : setChosenColor('red');
+  const handleClickSendMessage = async () => {
+    const newColor = (chosenColor === 'red') ? 'green' : 'red';
+
+    // console.log('before: ', chosenColor);
+    // console.log('strict equal: ', (chosenColor === 'red'));
+    // // (chosenColor === 'red') ? setChosenColor('green') : setChosenColor('red');
+    // if (chosenColor === 'red') {
+    //   console.log('in green');
+    //   setChosenColor('green');
+    //   console.log('line 79: ', chosenColor);
+    // }
+    // else {
+    //   console.log('in red');
+    //   setChosenColor('red');
+    // }
+    // console.log('after:', chosenColor);
     // (lastJsonMessage.data.color === 'red') ? setChosenColor('green') : setChosenColor('red');
-    sendJsonMessage({type: 'contentchange', content: `${wsUser}: hello`, color: chosenColor})
+    sendJsonMessage({type: 'contentchange', content: `${wsUser}: hello`, color: newColor})
+    setChosenColor(newColor);
   }
   console.log('last JSON message', lastJsonMessage);
   
-  useEffect(()=>{
-
-    console.log('chosenColor', chosenColor);
-
-  },[chosenColor])
 
   return (
   <>
     <button
       onClick={handleClickSendMessage}
-      disabled={readyState !== ReadyState.OPEN} style={{backgroundColor: `${lastJsonMessage ? lastJsonMessage.data.color: chosenColor}`}}
+      disabled={readyState !== ReadyState.OPEN} style={{backgroundColor: chosenColor}}
     >
       Click Me to send 'Hello'
     </button>
