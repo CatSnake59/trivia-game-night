@@ -76,7 +76,6 @@ body {
 .scoreboard.highlighted {
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   background: linear-gradient(109.6deg, rgb(207, 196, 129) 5.2%, rgb(233, 212, 52) 91.1%);
-
   transform: scale(1.15);
 }
 

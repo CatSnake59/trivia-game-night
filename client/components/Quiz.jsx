@@ -122,31 +122,31 @@ function Quiz({ user, setUser }) {
   
 
   return Object.keys(quizQuestions).length ? (
-    
     <div id="quiz">
       <header>
-        <h1 className="welcomeMessage">Welcome, {user.username}!</h1>
+        <h1 className='welcomeMessage'>Welcome, {user.username}!</h1>
       </header>
       <WebSocketDemo wsUser={user.username}/>
       <main>
         <nav id="scoreboard">
-          <div className={playerTurn === 1 ? 'scoreboard highlighted' : 'scoreboard'}>
+
             <Scoreboard score={player1Score} playerNumber={1} />
-          </div>
-          <div className={playerTurn === 2 ? 'scoreboard highlighted' : 'scoreboard'}>
             <Scoreboard score={player2Score} playerNumber={2} />
-          </div>
+
         </nav>
         {/* conditionally load based on user actions. Either loads quizboard, win, or the selected card */}
         <Routes>
           {/* {console.log('in routes', loading)} */}
           <Route
-            path="/"
+            path='/'
             element={
-              <div className="jeopardy-board">
+              <div className='jeopardy-board'>
                 {Object.keys(quizQuestions).map((category) => (
-                  <div className="questions">
-                    <div className="category" style={{ fontSize: getFontSize(category.length) }}>
+                  <div className='questions'>
+                    <div
+                      className='category'
+                      style={{ fontSize: getFontSize(category.length) }}
+                    >
                       {category}
                     </div>
                     {quizQuestions[category].map(
@@ -159,7 +159,7 @@ function Quiz({ user, setUser }) {
                             handleQuestionClick={handleQuestionClick} // passing down the handleQuestionClick to QuestionCard
                             setQuestionState={setQuestionState}
                           />
-                        )) || <div className="question-card" />,
+                        )) || <div className='question-card' />
                     )}
                   </div>
                 ))}
@@ -168,7 +168,7 @@ function Quiz({ user, setUser }) {
           />
 
           <Route
-            path="/card"
+            path='/card'
             element={
               <Question
                 key={crypto.randomUUID()}
@@ -180,16 +180,22 @@ function Quiz({ user, setUser }) {
             }
           />
           <Route
-            path="/win"
-            element={<WinCondition resetGame={resetGame} hasWon={hasWon} playerTurn={playerTurn} />}
+            path='/win'
+            element={
+              <WinCondition
+                resetGame={resetGame}
+                hasWon={hasWon}
+                playerTurn={playerTurn}
+              />
+            }
           />
         </Routes>
       </main>
-      <div className="quizButtons">
-        <button type="button" id="logOffBtn" onClick={handleLogOut}>
+      <div className='quizButtons'>
+        <button type='button' id='logOffBtn' onClick={handleLogOut}>
           LOG OUT
         </button>
-        <button type="button" id="deleteAcctBtn" onClick={handleDeleteAccount}>
+        <button type='button' id='deleteAcctBtn' onClick={handleDeleteAccount}>
           DELETE ACCOUNT
         </button>
       </div>
