@@ -70,10 +70,14 @@ body {
   /* text-shadow: 1px 1px 0px rgba(255, 255, 255, 1),
     1px 1px 0px rgba(0, 0, 0, 0.15); */
   margin: 0.66em 0;
+  transition: all 0.2s ease-in-out;
 }
 
 .scoreboard.highlighted {
-  background: black;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  background: linear-gradient(109.6deg, rgb(207, 196, 129) 5.2%, rgb(233, 212, 52) 91.1%);
+
+  transform: scale(1.15);
 }
 
 .scoreboard h2 {

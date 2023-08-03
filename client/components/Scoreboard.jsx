@@ -1,8 +1,8 @@
 import React from 'react';
 
-function Scoreboard({ score, playerNumber }) {
+function Scoreboard({ score, playerNumber, playerTurn }) {
   return (
-    <>
+    <div className={playerTurn === playerNumber ? 'scoreboard highlighted' : 'scoreboard'}>
       <h2 className="playerNumber">
         Player
         {playerNumber}
@@ -11,7 +11,7 @@ function Scoreboard({ score, playerNumber }) {
         Score:
         {score}
       </h2>
-    </>
+    </div>
   );
 }
 
