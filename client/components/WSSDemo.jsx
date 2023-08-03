@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import React, { useEffect, useCallback, useState } from 'react';
 import {
   Navbar,
@@ -25,7 +24,7 @@ function isDocumentEvent(message) {
   return evt.type === 'contentchange';
 }
 
-function App() {
+function WebSocketDemo({ wsUser }) {
   const [username, setUsername] = useState('');
   const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {
     onOpen: () => {
@@ -48,128 +47,166 @@ function App() {
 
   return (
     <>
-      <Navbar color="light" light>
+      {/* <Navbar color="light" light>
         <NavbarBrand href="/">Real-time document editor</NavbarBrand>
-      </Navbar>
+      </Navbar>*/}
       <div className="container-fluid">
-        {username ? <EditorSection/>
-            : <LoginSection onLogin={setUsername}/> }
-      </div>
+        <ButtonTest wsUser={wsUser} />
+      {/* <EditorSection/> */}
+        {/* {username ? <EditorSection/>
+            : <LoginSection onLogin={setUsername}/> } */}
+      </div> 
     </>
   );
 }
 
-function LoginSection({ onLogin }) {
-  const [username, setUsername] = useState('');
-  useWebSocket(WS_URL, {
-    share: true,
-    filter: () => false
-  });
-  function logInUser() {
-    if(!username.trim()) {
-      return;
-    }
-    onLogin && onLogin(username);
-  }
-
-  return (
-    <div className="account">
-      <div className="account__wrapper">
-        <div className="account__card">
-          <div className="account__profile">
-            <p className="account__name">Hello, user!</p>
-            <p className="account__sub">Join to edit the document</p>
-          </div>
-          <input name="username" onInput={(e) => setUsername(e.target.value)} className="form-control" />
-          <button
-            type="button"
-            onClick={() => logInUser()}
-            className="btn btn-primary account__btn">Join</button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function History() {
-  console.log('history');
-  const { lastJsonMessage } = useWebSocket(WS_URL, {
-    share: true,
-    filter: isUserEvent
-  });
-  const activities = lastJsonMessage?.data.userActivity || [];
-  return (
-    <ul>
-      {activities.map((activity, index) => <li key={`activity-${index}`}>{activity}</li>)}
-    </ul>
-  );
-}
-
-function Users() {
-  const { lastJsonMessage } = useWebSocket(WS_URL, {
-    share: true,
-    filter: isUserEvent
-  });
-  const users = Object.values(lastJsonMessage?.data.users || {});
-  return users.map(user => (
-    <div key={user.username}>
-      <span id={user.username} className="userInfo" key={user.username}>
-        <Avatar name={user.username} size={40} round="20px"/>
-      </span>
-      <UncontrolledTooltip placement="top" target={user.username}>
-        {user.username}
-      </UncontrolledTooltip>
-    </div>
-  ));
-}
-
-
-function EditorSection() {
-  return (
-    <div className="main-content">
-      <div className="document-holder">
-        <div className="currentusers">
-          <Users/>
-        </div>
-        <Document/>
-      </div>
-      <div className="history-holder">
-        <History/>
-      </div>
-    </div>
-  );
-}
-
-function Document() {
-  const { sendMessage, lastMessage, readyState } = useWebSocket(WS_URL);
-
+function ButtonTest({ wsUser }) {
+  const { readyState } = useWebSocket(WS_URL);
   const { lastJsonMessage, sendJsonMessage } = useWebSocket(WS_URL, {
     share: true,
     filter: isDocumentEvent
   });
-
-
-
-  let html = lastJsonMessage?.data.editorContent || '';
-  const handleClickSendMessage = () => sendJsonMessage({type: 'contentchange', content: `${html} hello`})
-
-  function handleHtmlChange(e) {
-    sendJsonMessage({
-      type: 'contentchange',
-      content: e.target.value
-    });
+  const [ chosenColor, setChosenColor ] = useState('red');
+  // let chosenColor = 'red';
+  
+  const handleClickSendMessage = () => {
+    (chosenColor === 'red') ? setChosenColor('green') : setChosenColor('red');
+    // (lastJsonMessage.data.color === 'red') ? setChosenColor('green') : setChosenColor('red');
+    sendJsonMessage({type: 'contentchange', content: `${wsUser}: hello`, color: chosenColor})
   }
+  console.log('last JSON message', lastJsonMessage);
+  
+  useEffect(()=>{
+
+    console.log('chosenColor', chosenColor);
+
+  },[chosenColor])
 
   return (
-    <>
+  <>
     <button
-    onClick={handleClickSendMessage}
-    disabled={readyState !== ReadyState.OPEN}
-  >
-    Click Me to send 'Hello'
-  </button>
-    <DefaultEditor value={html} onChange={handleHtmlChange} /></>
-  );
+      onClick={handleClickSendMessage}
+      disabled={readyState !== ReadyState.OPEN} style={{backgroundColor: `${lastJsonMessage ? lastJsonMessage.data.color: chosenColor}`}}
+    >
+      Click Me to send 'Hello'
+    </button>
+  </>
+  )
 }
 
-export default App;
+// function LoginSection({ onLogin }) {
+//   const [username, setUsername] = useState('');
+//   useWebSocket(WS_URL, {
+//     share: true,
+//     filter: () => false
+//   });
+//   function logInUser() {
+//     if(!username.trim()) {
+//       return;
+//     }
+//     onLogin && onLogin(username);
+//   }
+
+//   return (
+//     <div className="account">
+//       <div className="account__wrapper">
+//         <div className="account__card">
+//           <div className="account__profile">
+//             <p className="account__name">Hello, user!</p>
+//             <p className="account__sub">Join to Buzz</p>
+//           </div>
+//           <input name="username" onInput={(e) => setUsername(e.target.value)} className="form-control" />
+//           <button
+//             type="button"
+//             onClick={() => logInUser()}
+//             className="btn btn-primary account__btn">Join</button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// function History() {
+//   console.log('history');
+//   const { lastJsonMessage } = useWebSocket(WS_URL, {
+//     share: true,
+//     filter: isUserEvent
+//   });
+//   const activities = lastJsonMessage?.data.userActivity || [];
+//   return (
+//     <ul>
+//       {activities.map((activity, index) => <li key={`activity-${index}`}>{activity}</li>)}
+//     </ul>
+//   );
+// }
+
+// function Users() {
+//   const { lastJsonMessage } = useWebSocket(WS_URL, {
+//     share: true,
+//     filter: isUserEvent
+//   });
+//   const users = Object.values(lastJsonMessage?.data.users || {});
+//   return users.map(user => (
+//     <div key={user.username}>
+//       <span id={user.username} className="userInfo" key={user.username}>
+//         <Avatar name={user.username} size={40} round="20px"/>
+//       </span>
+//       <UncontrolledTooltip placement="top" target={user.username}>
+//         {user.username}
+//       </UncontrolledTooltip>
+//     </div>
+//   ));
+// }
+
+
+// function EditorSection() {
+//   return (
+//     <div className="main-content">
+//       <div className="document-holder">
+//         <div className="currentusers">
+//           <Users/>
+//         </div>
+//         <Document/>
+//       </div>
+//       <div className="history-holder">
+//         <History/>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+// function Document() {
+//   const { sendMessage, lastMessage, readyState } = useWebSocket(WS_URL);
+
+//   const { lastJsonMessage, sendJsonMessage } = useWebSocket(WS_URL, {
+//     share: true,
+//     filter: isDocumentEvent
+//   });
+
+
+
+//   let html = lastJsonMessage?.data.editorContent || '';
+//   const handleClickSendMessage = () => sendJsonMessage({type: 'contentchange', content: `${html} hello`})
+
+//   function handleHtmlChange(e) {
+//     sendJsonMessage({
+//       type: 'contentchange',
+//       content: e.target.value
+//     });
+//   }
+
+//   return (
+//     <>
+//     <button
+//     onClick={handleClickSendMessage}
+//     disabled={readyState !== ReadyState.OPEN}
+//   >
+//     Click Me to send 'Hello'
+//   </button>
+//     <DefaultEditor value={html} onChange={handleHtmlChange} /></>
+//   );
+// }
+
+
+export default WebSocketDemo;

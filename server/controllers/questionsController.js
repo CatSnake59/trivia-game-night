@@ -1,5 +1,3 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable import/no-unresolved */
 // const Topic = require('../models/questionsModel');
 const fetch = require('node-fetch');
 
@@ -24,7 +22,7 @@ questionsController.getQuestions = async (req, res, next) => {
     categories.push(apiCategories.splice(ranNum, 1)[0]);
   }
 
-  // eslint-disable-next-line no-console
+
   console.log('categories: ', categories);
 
   const questions = {};
@@ -32,7 +30,7 @@ questionsController.getQuestions = async (req, res, next) => {
   // For each category, we get 2 easy, 2 medium, 1 hard-
   // Need id for api call, Need name for setting key of questions
   Promise.all(
-    // eslint-disable-next-line consistent-return
+
     categories.map(async (category) => {
       try {
         let easy = await fetch(`https://opentdb.com/api.php?amount=2&category=${category.id}&difficulty=easy&type=multiple`, {

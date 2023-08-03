@@ -7,9 +7,9 @@ body {
 }
 
 .account {
-	 height: 100vh;
+	 height: 30vh;
 	 width: 100%;
-	 min-height: 100vh;
+	 min-height: 20vh;
 	 display: flex;
 	 overflow-y: auto;
    background: #eee;

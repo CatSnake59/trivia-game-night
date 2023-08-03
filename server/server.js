@@ -123,6 +123,7 @@ const wsServer = new WebSocketServer({ server });
 
 
 //server.on('request', app);
+
 //listening on different ports than the express server
 server.listen(8000, () => {
   console.log(`WebSocket server is running on port ${8000}`);
@@ -133,7 +134,7 @@ const clients = {};
 // I'm maintaining all active users in this object
 const users = {};
 // The current editor content is maintained here.
-let editorContent = null;
+let editorContent = null; //values 
 // User activity history.
 let userActivity = [];
 
@@ -145,7 +146,8 @@ const typesDef = {
 
 function broadcastMessage(json) {
   // We are sending the current data to all connected clients
-  const data = JSON.stringify(json);
+  //Necessary to send messages to all
+  const data = JSON.stringify(json)
   for(let userId in clients) {
     let client = clients[userId];
     if(client.readyState === WebSocket.OPEN) {
@@ -154,8 +156,8 @@ function broadcastMessage(json) {
   };
 }
 
-function handleMessage(message, userId) {
-  
+function handleMessage(message, userId, connection) {
+  // From Frontend : sendJsonMessage({type: 'contentchange', content: `${html} hello`})
   const dataFromClient = JSON.parse(message.toString());
   console.log('handleMessage dataFromClient', dataFromClient);
   const json = { type: dataFromClient.type };
@@ -164,8 +166,9 @@ function handleMessage(message, userId) {
     userActivity.push(`${dataFromClient.username} joined to edit the document`);
     json.data = { users, userActivity };
   } else if (dataFromClient.type === typesDef.CONTENT_CHANGE) {
-    editorContent = dataFromClient.content;
-    json.data = { editorContent, userActivity };
+    msg = dataFromClient.content;
+    //set the editerContent to the data conent we get from
+    json.data = { msg, userActivity, color: dataFromClient.color };
   }
   broadcastMessage(json);
 }
@@ -190,6 +193,7 @@ wsServer.on('connection', function(connection) {
   // Store the new connection and handle messages
   clients[userId] = connection;
   console.log(`${userId} connected.`);
+  //connection.on listens for an event. 'message' is a special word used in the ws library for message events
   connection.on('message', (message) => handleMessage(message, userId));
   // User disconnected
   connection.on('close', () => handleDisconnect(userId));
