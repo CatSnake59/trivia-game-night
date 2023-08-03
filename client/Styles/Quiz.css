@@ -18,23 +18,32 @@ body {
 .jeopardy-board {
   display: grid;
   place-items: center;
-  grid-template-columns: repeat(6, 1fr); /* 6 columns for categories */
+  grid-template-columns: repeat(5, 1fr); /* 5 columns for categories */
   grid-auto-rows: minmax(100px, auto);
-  gap: 10px;
+  gap: 15px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1500px;
   margin-top: 20px;
   margin: auto;
 }
 
 .category {
-  grid-row: 1;
-  background-color: #007bff;
-  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 28px;
+  border-radius: 10px;
+  background-color: rgb(233, 212, 52);
+  /* color: rgb(255, 255, 255); */
   padding: 10px;
   text-align: center;
   font-weight: bold;
   height: 100px;
+  min-width: 8em;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  color: black;
+  line-height: 1em;
 }
 
 .questions {
@@ -53,7 +62,7 @@ body {
   background-color: rgba(41, 52, 103, 0);
   color: #fff;
   text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc; */
-  background: linear-gradient(109.6deg, rgb(0, 0, 0) 5.2%, rgb(11, 132, 145) 91.1%);
+  background: linear-gradient(109.6deg, rgb(168, 152, 34) 5.2%, rgb(233, 212, 52) 91.1%);
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   border-radius: 10px;
   width: 35%;
@@ -63,9 +72,14 @@ body {
   margin: 0.66em 0;
 }
 
+.scoreboard.highlighted {
+  background: black;
+}
+
 .scoreboard h2 {
   margin: 0;
   font-size: 2em;
+  text-shadow: -1px 4px 0px rgba(0, 0, 0, 0.58);
 }
 
 .scoreboard .playerNumber {
@@ -79,7 +93,9 @@ body {
 
 header {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  text-shadow: -1px 4px 0px rgba(0, 0, 0, 0.58);
 }
 
 header > div {
@@ -87,8 +103,21 @@ header > div {
   flex-direction: column;
 }
 
+.quizButtons {
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.quizButtons button {
+  display: flex;
+  width: 25%;
+  justify-content: center;
+}
+
 #logOffBtn {
   border-radius: 5px;
+  /* margin-right: 10px; */
   background-color: rgba(220, 220, 220, 0.8);
   font-family: 'Rubik', sans-serif;
 }
@@ -100,15 +129,14 @@ header > div {
 }
 
 #deleteAcctBtn {
-  border-radius: 0 0 0 10px;
+  border-radius: 5px;
   background-color: rgba(220, 220, 220, 0.8);
   font-family: 'Rubik', sans-serif;
+  align-items: flex-end;
 }
 
 #deleteAcctBtn:hover {
   background-color: rgb(255, 0, 0);
-  width: 8em;
-  height: 3em;
   color: white;
   cursor: pointer;
 }
@@ -122,4 +150,8 @@ header > div {
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+
+.welcomeMessage {
+  padding: 30px;
 }

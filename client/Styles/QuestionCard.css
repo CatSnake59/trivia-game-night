@@ -8,10 +8,16 @@
   cursor: pointer;
   transition: transform 0.4s;
   perspective: 1000px; /* Add perspective for 3D effect */
-  min-width: 115px;
-  min-height: 115px;
+  min-width: 10em;
+  min-height: 8em;
+  transition: all 0.2s ease-in-out;
 }
 
+.question-card:hover {
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  cursor: pointer;
+  transform: scale(1.05);
+}
 .question-card .front,
 .question-card .back {
   top: 0;
@@ -33,12 +39,12 @@
   /* Add more text-shadow layers to increase the glow effect */
   background-color: rgba(41, 52, 103, 0); /* Set the alpha value to 0 for full transparency */
   color: #fff;
-  text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc;
+  text-shadow: 0 0 10px rgb(7, 50, 97), 0 0 20px #3d9bff, 0 0 30px #007bff;
 }
 
 /* Add a neon-style effect to the back side */
 .question-card .back {
-  background-color: #00ffcc;
+  background-color: #0048a6;
   color: #000;
   text-shadow: 0 0 10px #007bff, 0 0 20px #007bff, 0 0 30px #007bff;
   /* Add more text-shadow layers to increase the glow effect */
