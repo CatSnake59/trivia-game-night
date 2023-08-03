@@ -13,6 +13,7 @@ import '../Styles/Quiz.css'; // Import the CSS file for the Quiz component
 import Scoreboard from './Scoreboard';
 import WinCondition from './Wincondition';
 import FurretLoadingScreen from './FurretLoadingScreen';
+import WebSocketDemo from './WSSDemo';
 // import ResetQuiz from './ResetQuiz'
 
 const getFontSize = (textLength) => {
@@ -123,12 +124,15 @@ function Quiz({ user, setUser }) {
         console.error('Error fetching quiz questions:', error);
       });
   }, [newGame]);
+  
 
   return Object.keys(quizQuestions).length ? (
+    
     <div id="quiz">
       <header>
         <h1 className="welcomeMessage">Welcome, {user.username}!</h1>
       </header>
+      <WebSocketDemo/>
       <main>
         <nav id="scoreboard">
           <div className={playerTurn === 1 ? 'scoreboard highlighted' : 'scoreboard'}>
