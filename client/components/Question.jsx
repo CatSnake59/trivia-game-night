@@ -1,5 +1,3 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import useSound from 'use-sound';
 import jeopardyMusic from '../assets/jeopardy.mp3';
@@ -9,7 +7,7 @@ import Timer from './Time';
 const shuffleArray = (array) => {
   const shuffledArray = [...array];
 
-  // eslint-disable-next-line no-plusplus
+ 
   for (let i = shuffledArray.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];

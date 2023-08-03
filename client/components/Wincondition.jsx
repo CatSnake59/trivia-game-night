@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import useSound from 'use-sound';
 import '../Styles/WinCondition.css'; // this will be neon color

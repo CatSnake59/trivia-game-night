@@ -1,5 +1,6 @@
 // require modules
 const express = require('express');
+const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -78,4 +79,122 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}...`);
+});
+
+// const WebSocket = require('ws');
+
+// const WSServer = WebSocket.Server;
+
+// const server = require('http').createServer();
+
+// const wss = new WSServer({
+//   server,
+//   perMessageDeflate: false,
+// });
+
+// server.on('request', app);
+
+// server.listen(PORT, () => {
+//   console.log(`Combo server listening on port ${PORT}...`);
+// });
+
+// // A new client connection request received
+// wss.on('connection', function(connection) {
+//   // Generate a unique code for every user
+//   const userId = uuidv4();
+//   console.log('Recieved a new connection');
+
+//   // Store the new connection and handle messages
+//   clients[userId] = connection;
+//   console.log(`${userId} connected.`);
+//   connection.on('message', (message) => handleMessage(message, userId));
+//   // User disconnected
+//   connection.on('close', () => handleDisconnect(userId));
+// });
+
+
+const { WebSocket, WebSocketServer } = require('ws');
+const http = require('http');
+
+
+// Spinning the http server and the WebSocket server.
+const server = http.createServer();
+const wsServer = new WebSocketServer({ server });
+
+
+//server.on('request', app);
+
+//listening on different ports than the express server
+server.listen(8000, () => {
+  console.log(`WebSocket server is running on port ${8000}`);
+});
+
+// I'm maintaining all active connections in this object
+const clients = {};
+// I'm maintaining all active users in this object
+const users = {};
+// The current editor content is maintained here.
+let editorContent = null; //values 
+// User activity history.
+let userActivity = [];
+
+// Event types
+const typesDef = {
+  USER_EVENT: 'userevent',
+  CONTENT_CHANGE: 'contentchange'
+}
+
+function broadcastMessage(json) {
+  // We are sending the current data to all connected clients
+  //Necessary to send messages to all
+  const data = JSON.stringify(json)
+  for(let userId in clients) {
+    let client = clients[userId];
+    if(client.readyState === WebSocket.OPEN) {
+      client.send(data);
+    }
+  };
+}
+
+function handleMessage(message, userId, connection) {
+  // From Frontend : sendJsonMessage({type: 'contentchange', content: `${html} hello`})
+  const dataFromClient = JSON.parse(message.toString());
+  console.log('handleMessage dataFromClient', dataFromClient);
+  const json = { type: dataFromClient.type };
+  if (dataFromClient.type === typesDef.USER_EVENT) {
+    users[userId] = dataFromClient;
+    userActivity.push(`${dataFromClient.username} joined to edit the document`);
+    json.data = { users, userActivity };
+  } else if (dataFromClient.type === typesDef.CONTENT_CHANGE) {
+    msg = dataFromClient.content;
+    //set the editerContent to the data conent we get from
+    json.data = { msg, userActivity, color: dataFromClient.color };
+  }
+  broadcastMessage(json);
+}
+
+function handleDisconnect(userId) {
+    console.log(`${userId} disconnected.`);
+    const json = { type: typesDef.USER_EVENT };
+    const username = users[userId]?.username || userId;
+    userActivity.push(`${username} left the document`);
+    json.data = { users, userActivity };
+    delete clients[userId];
+    delete users[userId];
+    broadcastMessage(json);
+}
+
+// A new client connection request received
+wsServer.on('connection', function(connection) {
+  // Generate a unique code for every user
+  const userId = uuidv4();
+  console.log('Recieved a new connection');
+
+  // Store the new connection and handle messages
+  clients[userId] = connection;
+  console.log(`${userId} connected.`);
+  //connection.on listens for an event. 'message' is a special word used in the ws library for message events
+  connection.on('message', (message) => handleMessage(message, userId));
+  // User disconnected
+  connection.on('close', () => handleDisconnect(userId));
 });

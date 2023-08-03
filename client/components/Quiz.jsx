@@ -1,9 +1,3 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable max-len */
-/* eslint-disable no-alert */
-/* eslint-disable no-console */
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import QuestionCard from './QuestionCards';
@@ -13,6 +7,7 @@ import '../Styles/Quiz.css'; // Import the CSS file for the Quiz component
 import Scoreboard from './Scoreboard';
 import WinCondition from './Wincondition';
 import FurretLoadingScreen from './FurretLoadingScreen';
+import WebSocketDemo from './WSSDemo'
 // import ResetQuiz from './ResetQuiz'
 
 const getFontSize = (textLength) => {
@@ -24,6 +19,7 @@ const getFontSize = (textLength) => {
 
 function Quiz({ user, setUser }) {
   console.log('quiz -----------------------------------------------');
+  console.log('USER HERE', user);
   const navigate = useNavigate();
   // States
   const [playerTurn, setPlayerTurn] = useState(1);
@@ -123,16 +119,20 @@ function Quiz({ user, setUser }) {
         console.error('Error fetching quiz questions:', error);
       });
   }, [newGame]);
+  
 
   return Object.keys(quizQuestions).length ? (
-    <div id='quiz'>
+    <div id="quiz">
       <header>
         <h1 className='welcomeMessage'>Welcome, {user.username}!</h1>
       </header>
+      <WebSocketDemo wsUser={user.username}/>
       <main>
         <nav id="scoreboard">
-          <Scoreboard score={player1Score} playerNumber={1} playerTurn={playerTurn} />
-          <Scoreboard score={player2Score} playerNumber={2} playerTurn={playerTurn} />
+
+            <Scoreboard score={player1Score} playerNumber={1} />
+            <Scoreboard score={player2Score} playerNumber={2} />
+
         </nav>
         {/* conditionally load based on user actions. Either loads quizboard, win, or the selected card */}
         <Routes>

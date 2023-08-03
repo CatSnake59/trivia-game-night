@@ -55,7 +55,8 @@ module.exports = {
       '/verifyJwt': 'http://localhost:3000',
       '/log-in': 'http://localhost:3000',
       '/sign-up': 'http://localhost:3000',
-      '/delete': 'http://localhost:3000'
+      '/delete': 'http://localhost:3000',
+
     },
   },
   plugins: [
