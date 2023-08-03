@@ -17,7 +17,7 @@ const shuffleArray = (array) => {
   return shuffledArray;
 };
 
-function Question({ question, handleAnswerClick, points }) {
+function Question({ question, handleAnswerClick, points, playerTurn }) {
   const [play, { stop }] = useSound(jeopardyMusic, { volume: 0.1 });
 
   useEffect(() => {
@@ -49,7 +49,7 @@ function Question({ question, handleAnswerClick, points }) {
               type="button"
               className="answer"
               key={i}
-              onClick={() => handleAnswerClick(question, answer)}
+              onClick={() => handleAnswerClick(question, answer, playerTurn)}
             >
               {decodeHtml(answer)}
             </button>
