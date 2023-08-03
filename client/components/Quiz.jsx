@@ -15,6 +15,13 @@ import WinCondition from './Wincondition';
 import FurretLoadingScreen from './FurretLoadingScreen';
 // import ResetQuiz from './ResetQuiz'
 
+const getFontSize = (textLength) => {
+  if (textLength < 15) return '30px';
+  if (textLength > 25) return '25px';
+  if (textLength > 40) return '20px';
+  if (textLength > 55) return '18px';
+};
+
 function Quiz({ user, setUser }) {
   console.log('quiz -----------------------------------------------');
   const navigate = useNavigate();
@@ -119,87 +126,80 @@ function Quiz({ user, setUser }) {
       });
   }, [newGame]);
 
-  return (
-    (Object.keys(quizQuestions).length)
-      ? (
-        <div id="quiz">
-          <header>
-            <h1>
-              WELCOME,
-              {user.username.toUpperCase()}
-            </h1>
-            <div>
-              <button type="button" id="logOffBtn" onClick={handleLogOut}>
-                LOG OUT
-              </button>
-              <button type="button" id="deleteAcctBtn" onClick={handleDeleteAccount}>
-                DELETE ACCOUNT
-              </button>
-            </div>
-          </header>
-          <main>
-            <nav id="scoreboard">
-              <Scoreboard score={player1Score} playerNumber={1} />
-              <Scoreboard score={player2Score} playerNumber={2} />
-            </nav>
-
-            {/* conditionally load based on user actions. Either loads quizboard, win, or the selected card */}
-            <Routes>
-              {console.log('in routes', loading)}
-              <Route
-                path="/"
-                element={(
-                  <div className="jeopardy-board">
-                    {Object.keys(quizQuestions).map((category) => (
-                      <div className="questions">
-                        <div className="category">{category}</div>
-                        {quizQuestions[category].map(
-                          (question) =>
-                            // check if a question was already answered from the quizQuestions[category] array. If yes, then display empty card. If not, display card.
-                            (!answeredQuestions.includes(question.question) && (
-                              <QuestionCard
-                                key={crypto.randomUUID()}
-                                question={question}
-                                handleQuestionClick={handleQuestionClick} // passing down the handleQuestionClick to QuestionCard
-                                setQuestionState={setQuestionState}
-                              />
-                            )) || <div className="question-card" />,
-                        )}
-                      </div>
-                    ))}
+  return Object.keys(quizQuestions).length ? (
+    <div id="quiz">
+      <header>
+        <h1 className="welcomeMessage">Welcome, {user.username}!</h1>
+      </header>
+      <main>
+        <nav id="scoreboard">
+          <div className={playerTurn === 1 ? 'scoreboard highlighted' : 'scoreboard'}>
+            <Scoreboard score={player1Score} playerNumber={1} />
+          </div>
+          <div className={playerTurn === 2 ? 'scoreboard highlighted' : 'scoreboard'}>
+            <Scoreboard score={player2Score} playerNumber={2} />
+          </div>
+        </nav>
+        {/* conditionally load based on user actions. Either loads quizboard, win, or the selected card */}
+        <Routes>
+          {console.log('in routes', loading)}
+          <Route
+            path="/"
+            element={
+              <div className="jeopardy-board">
+                {Object.keys(quizQuestions).map((category) => (
+                  <div className="questions">
+                    <div className="category" style={{ fontSize: getFontSize(category.length) }}>
+                      {category}
+                    </div>
+                    {quizQuestions[category].map(
+                      (question) =>
+                        // check if a question was already answered from the quizQuestions[category] array. If yes, then display empty card. If not, display card.
+                        (!answeredQuestions.includes(question.question) && (
+                          <QuestionCard
+                            key={crypto.randomUUID()}
+                            question={question}
+                            handleQuestionClick={handleQuestionClick} // passing down the handleQuestionClick to QuestionCard
+                            setQuestionState={setQuestionState}
+                          />
+                        )) || <div className="question-card" />,
+                    )}
                   </div>
+                ))}
+              </div>
+            }
+          />
 
-            )}
+          <Route
+            path="/card"
+            element={
+              <Question
+                key={crypto.randomUUID()}
+                question={questionState}
+                handleAnswerClick={handleAnswerClick}
+                points={points[questionState.difficulty]}
+                playerTurn={playerTurn}
               />
-
-              <Route
-                path="/card"
-                element={(
-                  <Question
-                    key={crypto.randomUUID()}
-                    question={questionState}
-                    handleAnswerClick={handleAnswerClick}
-                    points={points[questionState.difficulty]}
-                    playerTurn={playerTurn}
-                  />
-            )}
-              />
-              <Route
-                path="/win"
-                element={(
-                  <WinCondition
-                    resetGame={resetGame}
-                    hasWon={hasWon}
-                    playerTurn={playerTurn}
-                  />
-            )}
-              />
-            </Routes>
-          </main>
-        </div>
-      )
-
-      : <FurretLoadingScreen />);
+            }
+          />
+          <Route
+            path="/win"
+            element={<WinCondition resetGame={resetGame} hasWon={hasWon} playerTurn={playerTurn} />}
+          />
+        </Routes>
+      </main>
+      <div className="quizButtons">
+        <button type="button" id="logOffBtn" onClick={handleLogOut}>
+          LOG OUT
+        </button>
+        <button type="button" id="deleteAcctBtn" onClick={handleDeleteAccount}>
+          DELETE ACCOUNT
+        </button>
+      </div>
+    </div>
+  ) : (
+    <FurretLoadingScreen />
+  );
 }
 
 export default Quiz;
