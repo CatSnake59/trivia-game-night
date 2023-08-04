@@ -1,22 +1,18 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import useSound from 'use-sound';
 import spongebob from '../assets/spongebob-fog-horn-made-with-Voicemod-technology.mp3';
-import {
-  Navbar,
-  NavbarBrand,
-  UncontrolledTooltip
-} from 'reactstrap';
+import { Navbar, NavbarBrand, UncontrolledTooltip } from 'reactstrap';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { DefaultEditor } from 'react-simple-wysiwyg';
 import Avatar from 'react-avatar';
-import '../Styles/wssdemo.css'
+import '../Styles/wssdemo.css';
 
 const WS_URL = 'ws://localhost:8000/ws';
 
 const isBuzzerEvent = (message) => {
   let evt = JSON.parse(message.data);
   return evt.type === 'buzzerevent';
-}
+};
 
 const WebSocketDemo = ({ wsUser }) => {
   const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {
@@ -26,16 +22,16 @@ const WebSocketDemo = ({ wsUser }) => {
     share: true,
     filter: () => false,
     retryOnError: true,
-    shouldReconnect: () => true
+    shouldReconnect: () => true,
   });
   return (
     <>
-      <div className="container-fluid">
-        <Buzzer wsUser={wsUser}/>
-      </div> 
+      <div className='container-fluid'>
+        <Buzzer wsUser={wsUser} />
+      </div>
     </>
   );
-}
+};
 
 const Buzzer = ({ wsUser }) => {
   const redCode = '#f44336';
@@ -44,34 +40,47 @@ const Buzzer = ({ wsUser }) => {
   const { readyState } = useWebSocket(WS_URL);
   const { lastJsonMessage, sendJsonMessage } = useWebSocket(WS_URL, {
     share: true,
-    filter: isBuzzerEvent
+    filter: isBuzzerEvent,
   });
-  const [ chosenColor, setChosenColor ] = useState(redCode);
-  useEffect(()=>{
-    setChosenColor(lastJsonMessage?lastJsonMessage.data.color:chosenColor);
-    if(lastJsonMessage){
+  const [chosenColor, setChosenColor] = useState(redCode);
+  useEffect(() => {
+    setChosenColor(lastJsonMessage ? lastJsonMessage.data.color : chosenColor);
+    if (lastJsonMessage) {
       stop();
       play();
     }
-  },[lastJsonMessage])
-  
+  }, [lastJsonMessage]);
+
   const handleClickSendMessage = async () => {
-    const newColor = (chosenColor === redCode) ? greenCode : redCode;
-    sendJsonMessage({type: 'buzzerevent', content: `${wsUser}: hello`, color: newColor})
+    const newColor = chosenColor === redCode ? greenCode : redCode;
+    sendJsonMessage({
+      type: 'buzzerevent',
+      content: `${wsUser}: hello`,
+      color: newColor,
+    });
     setChosenColor(newColor);
-  }
+  };
   console.log('last JSON message', lastJsonMessage);
-  
+
   return (
-  <>
-    <button
-      onClick={handleClickSendMessage}
-      disabled={readyState !== ReadyState.OPEN} style={{backgroundColor: chosenColor, position: 'fixed', top: '10px', borderRadius: '100%', padding: '20px', width: '100px', height: '100px'}}
-    >
-      Honk!
-    </button>
-  </>
-  )
-}
+    <>
+      <button
+        onClick={handleClickSendMessage}
+        disabled={readyState !== ReadyState.OPEN}
+        style={{
+          backgroundColor: chosenColor,
+          position: 'fixed',
+          top: '10px',
+          borderRadius: '100%',
+          padding: '20px',
+          width: '100px',
+          height: '100px',
+        }}
+      >
+        Honk!
+      </button>
+    </>
+  );
+};
 
 export default WebSocketDemo;

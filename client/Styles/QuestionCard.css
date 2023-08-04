@@ -2,7 +2,12 @@
 .question-card {
   width: 10em;
   height: 8em;
-  background-color: rgba(0, 124, 255, 0.8); /* Change the alpha value to adjust transparency */
+  background-color: rgba(
+    0,
+    124,
+    255,
+    0.8
+  ); /* Change the alpha value to adjust transparency */
   border: 2px solid;
   border-radius: 10px;
   cursor: pointer;
@@ -38,7 +43,12 @@
 /* Add a neon-style effect to the front side */
 .question-card .front {
   /* Add more text-shadow layers to increase the glow effect */
-  background-color: rgba(41, 52, 103, 0); /* Set the alpha value to 0 for full transparency */
+  background-color: rgba(
+    41,
+    52,
+    103,
+    0
+  ); /* Set the alpha value to 0 for full transparency */
   color: #fff;
   text-shadow: 0 0 10px rgb(7, 50, 97), 0 0 20px #3d9bff, 0 0 30px #007bff;
 }

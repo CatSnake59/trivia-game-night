@@ -3,9 +3,9 @@ import QuestionCard from './QuestionCards';
 
 const QuestionCategory = ({ category, questions }) => {
   return (
-    <div className="question-category">
+    <div className='question-category'>
       <h2>{category}</h2>
-      <div className="question-cards">
+      <div className='question-cards'>
         {questions.easy.map((question) => (
           <QuestionCard key={question._id} question={question} />
         ))}
@@ -16,6 +16,6 @@ const QuestionCategory = ({ category, questions }) => {
       </div>
     </div>
   );
-}
+};
 
 export default QuestionCategory;

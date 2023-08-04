@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import StickyBox from 'react-sticky-box'
+import StickyBox from 'react-sticky-box';
 import QuestionCard from './QuestionCards';
 import Question from './Question';
 import '../Styles/Quiz.css';
 import Scoreboard from './Scoreboard';
 import WinCondition from './Wincondition';
 import FurretLoadingScreen from './FurretLoadingScreen';
-import WebSocketDemo from './WSSDemo'
+import WebSocketDemo from './WSSDemo';
 
 // helper function: control font size
 const getFontSize = (textLength) => {
@@ -91,14 +91,16 @@ const Quiz = ({ user, setUser }) => {
           username: user.username,
         }),
       });
-      console.log(`${user.username}'s account has been deleted from the database.`);
+      console.log(
+        `${user.username}'s account has been deleted from the database.`
+      );
       localStorage.removeItem('triviaJwtToken');
       setUser({});
       navigate('/');
     } catch (err) {
       console.error(err);
     }
-  }
+  };
 
   // event handler: user clicks on 'Log Out'
   const handleLogOut = () => {
@@ -106,7 +108,7 @@ const Quiz = ({ user, setUser }) => {
     setUser({});
     navigate('/');
   };
-  
+
   // fetch quiz questions from backend
   useEffect(() => {
     fetch('/questions')
@@ -122,19 +124,27 @@ const Quiz = ({ user, setUser }) => {
   }, [newGame]);
 
   return Object.keys(quizQuestions).length ? (
-    <div id="quiz">
+    <div id='quiz'>
       <header>
         <h1 className='welcomeMessage'>Welcome, {user.username}!</h1>
       </header>
 
-      <StickyBox offsetTop={20} className='sticky'> 
-        <WebSocketDemo wsUser={user.username}/>
+      <StickyBox offsetTop={20} className='sticky'>
+        <WebSocketDemo wsUser={user.username} />
       </StickyBox>
 
-      <main style={{minWidth: '80vw' }}>
-        <nav id="scoreboard">
-          <Scoreboard score={player1Score} playerNumber={1} playerTurn={playerTurn}/>
-          <Scoreboard score={player2Score} playerNumber={2} playerTurn={playerTurn}/>
+      <main style={{ minWidth: '80vw' }}>
+        <nav id='scoreboard'>
+          <Scoreboard
+            score={player1Score}
+            playerNumber={1}
+            playerTurn={playerTurn}
+          />
+          <Scoreboard
+            score={player2Score}
+            playerNumber={2}
+            playerTurn={playerTurn}
+          />
         </nav>
         {/* conditionally load routes based on user actions */}
         <Routes>
@@ -181,7 +191,7 @@ const Quiz = ({ user, setUser }) => {
               />
             }
           />
-          
+
           {/* path: /win */}
           <Route
             path='/win'
@@ -195,7 +205,7 @@ const Quiz = ({ user, setUser }) => {
           />
         </Routes>
       </main>
-      
+
       {/* 'log out' & 'delete account' buttons */}
       <div className='quizButtons'>
         <button type='button' id='logOffBtn' onClick={handleLogOut}>
@@ -210,6 +220,6 @@ const Quiz = ({ user, setUser }) => {
     // furret loading screen
     <FurretLoadingScreen />
   );
-}
+};
 
 export default Quiz;

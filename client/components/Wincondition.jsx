@@ -18,18 +18,18 @@ const WinCondition = ({ resetGame, hasWon, playerTurn }) => {
   }, [play, stop]);
 
   return (
-    <div className="win-container">
-      <h2 className="neon-text">
+    <div className='win-container'>
+      <h2 className='neon-text'>
         Congratulations! Player
         {playerTurn}
         Won!
       </h2>
-      <img id="alex" src={Alex} alt="Alex Trebek" />
-      <button type="button" id="playAgain" onClick={resetGame}>
+      <img id='alex' src={Alex} alt='Alex Trebek' />
+      <button type='button' id='playAgain' onClick={resetGame}>
         Play Again
       </button>
     </div>
   );
-}
+};
 
 export default WinCondition;

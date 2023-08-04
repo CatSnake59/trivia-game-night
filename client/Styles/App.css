@@ -57,7 +57,12 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 123, 255, 0.7); /* Set the alpha value to 0 for full transparency */
+  background-color: rgba(
+    0,
+    123,
+    255,
+    0.7
+  ); /* Set the alpha value to 0 for full transparency */
   color: #fff;
   text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc;
   /* padding: 20px; */
