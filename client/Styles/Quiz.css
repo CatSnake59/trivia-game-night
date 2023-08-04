@@ -62,8 +62,13 @@ body {
   background-color: rgba(41, 52, 103, 0);
   color: #fff;
   text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc; */
-  background: linear-gradient(109.6deg, rgb(168, 152, 34) 5.2%, rgb(233, 212, 52) 91.1%);
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  background: linear-gradient(
+    109.6deg,
+    rgb(168, 152, 34) 5.2%,
+    rgb(233, 212, 52) 91.1%
+  );
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   border-radius: 10px;
   width: 35%;
   text-align: center;
@@ -75,7 +80,11 @@ body {
 
 .scoreboard.highlighted {
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-  background: linear-gradient(109.6deg, rgb(207, 196, 129) 5.2%, rgb(233, 212, 52) 91.1%);
+  background: linear-gradient(
+    109.6deg,
+    rgb(207, 196, 129) 5.2%,
+    rgb(233, 212, 52) 91.1%
+  );
   transform: scale(1.15);
 }
 

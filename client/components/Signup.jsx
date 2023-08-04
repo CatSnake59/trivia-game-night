@@ -35,7 +35,7 @@ const SignUp = ({ setLoggedIn }) => {
       })
       .catch((err) => console.error(err));
   };
-  
+
   // event handler: user creates an account
   const handleCreateAccount = () => {
     fetch('/sign-up', {
@@ -65,34 +65,34 @@ const SignUp = ({ setLoggedIn }) => {
   };
 
   return (
-    <div className="login">
-      <h1 className="logTitle">Cat Snake Trivia</h1>
+    <div className='login'>
+      <h1 className='logTitle'>Cat Snake Trivia</h1>
       <div>
         <input
-          className="username"
-          type="username"
-          placeholder="username"
+          className='username'
+          type='username'
+          placeholder='username'
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
       <div>
         <input
-          className="password"
-          type="password"
-          placeholder="password"
+          className='password'
+          type='password'
+          placeholder='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <div>
           <button onClick={handleLogin}>Login</button>
-          <button className="createAcct" onClick={handleCreateAccount}>
+          <button className='createAcct' onClick={handleCreateAccount}>
             Create Account
           </button>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default SignUp;

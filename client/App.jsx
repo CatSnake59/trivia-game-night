@@ -5,7 +5,7 @@ import Quiz from './components/Quiz';
 import './Styles/App.css';
 
 
-const App = (props) => {
+const App = () => {
   // state variables
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
@@ -13,8 +13,8 @@ const App = (props) => {
   // check for JWT on page load
   useEffect(() => {
     const jwtToken = localStorage.getItem('triviaJwtToken');
-    if(jwtToken){
-      fetchUserData(jwtToken)
+    if (jwtToken) {
+      fetchUserData(jwtToken);
     }
     setLoggedIn(false);
   }, [loggedIn]);
@@ -23,22 +23,31 @@ const App = (props) => {
   const fetchUserData = async (jwt) => {
     const user = await fetch('/verifyJwt', {
       headers: {
-        'Authorization': `Bearer ${jwt}`
-      }
-    })
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
     if (user.ok) {
       const userData = await user.json();
-      setUser(userData)
+      setUser(userData);
     } else {
       localStorage.removeItem('triviaJwtToken');
     }
-  }
+  };
 
   return (
     <div>
       <Router>
         <Routes>
-          <Route path="/*" element={user.username ? <Quiz user={user} setUser={setUser} /> : <SignUp setLoggedIn={setLoggedIn} />}/>
+          <Route
+            path='/*'
+            element={
+              user.username ? (
+                <Quiz user={user} setUser={setUser} />
+              ) : (
+                <SignUp setLoggedIn={setLoggedIn} />
+              )
+            }
+          />
         </Routes>
       </Router>
     </div>

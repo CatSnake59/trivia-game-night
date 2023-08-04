@@ -31,20 +31,23 @@ const Question = ({ question, handleAnswerClick, points, playerTurn }) => {
     const txt = document.createElement('textarea');
     txt.innerHTML = html;
     return txt.value;
-  }
+  };
 
-  const answers = shuffleArray([question.correct_answer, ...question.incorrect_answers]);
+  const answers = shuffleArray([
+    question.correct_answer,
+    ...question.incorrect_answers,
+  ]);
 
   return (
     <>
       <Timer points={points} />
-      <div className="question-container">
-        <h1 className="question-title">{decodeHtml(question.question)}</h1>
-        <div className="answer-container">
+      <div className='question-container'>
+        <h1 className='question-title'>{decodeHtml(question.question)}</h1>
+        <div className='answer-container'>
           {answers.map((answer, i) => (
             <button
-              type="button"
-              className="answer"
+              type='button'
+              className='answer'
               key={i}
               onClick={() => handleAnswerClick(question, answer, playerTurn)}
             >
@@ -55,6 +58,6 @@ const Question = ({ question, handleAnswerClick, points, playerTurn }) => {
       </div>
     </>
   );
-}
+};
 
 export default Question;

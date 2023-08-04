@@ -8,8 +8,7 @@ questionsController.getQuestions = async (req, res, next) => {
   // Choose five unique categories randomly out of API call for categories
   let apiCategories = await fetch('https://opentdb.com/api_category.php', {
     headers: {
-      'Content-Type':
-        'application/json',
+      'Content-Type': 'application/json',
     },
   });
   apiCategories = await apiCategories.json();
@@ -22,7 +21,6 @@ questionsController.getQuestions = async (req, res, next) => {
     categories.push(apiCategories.splice(ranNum, 1)[0]);
   }
 
-
   console.log('categories: ', categories);
 
   const questions = {};
@@ -30,30 +28,38 @@ questionsController.getQuestions = async (req, res, next) => {
   // For each category, we get 2 easy, 2 medium, 1 hard-
   // Need id for api call, Need name for setting key of questions
   Promise.all(
-
     categories.map(async (category) => {
       try {
-        let easy = await fetch(`https://opentdb.com/api.php?amount=2&category=${category.id}&difficulty=easy&type=multiple`, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        let easy = await fetch(
+          `https://opentdb.com/api.php?amount=2&category=${category.id}&difficulty=easy&type=multiple`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
         easy = await easy.json();
         easy = easy.results;
 
-        let medium = await fetch(`https://opentdb.com/api.php?amount=2&category=${category.id}&difficulty=medium&type=multiple`, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        let medium = await fetch(
+          `https://opentdb.com/api.php?amount=2&category=${category.id}&difficulty=medium&type=multiple`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
         medium = await medium.json();
         medium = medium.results;
 
-        let hard = await fetch(`https://opentdb.com/api.php?amount=1&category=${category.id}&difficulty=hard&type=multiple`, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        let hard = await fetch(
+          `https://opentdb.com/api.php?amount=1&category=${category.id}&difficulty=hard&type=multiple`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
         hard = await hard.json();
         hard = hard.results;
 
@@ -63,15 +69,17 @@ questionsController.getQuestions = async (req, res, next) => {
           log: `Express error handler caught an error at questionsController.getQuestions: ${err}`,
         });
       }
-    }),
+    })
   )
     .then(() => {
       res.locals.questions = questions;
       return next();
     })
-    .catch((err) => next({
-      log: `Express error handler caught an error at questionsController.getQuestions: ${err}`,
-    }));
+    .catch((err) =>
+      next({
+        log: `Express error handler caught an error at questionsController.getQuestions: ${err}`,
+      })
+    );
 };
 
 module.exports = questionsController;

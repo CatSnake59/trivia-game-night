@@ -77,10 +77,12 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
+//Listen on a different port than the WS server
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}...`);
 });
 
+//---------------------------------------------------Websocket related functions:
 const { WebSocket, WebSocketServer } = require('ws');
 const http = require('http');
 const server = http.createServer();
@@ -96,21 +98,21 @@ const clients = {}; // manage client connections
 // event types
 const typesDef = {
   USER_EVENT: 'userevent',
-  BUZZER_EVENT: 'buzzerevent'
-}
+  BUZZER_EVENT: 'buzzerevent',
+};
 
 // broadcast message to all subscribers (clients)
-const broadcastMessage = (json) => {
-  const data = JSON.stringify(json)
+const broadcastMessage = (json, connection) => {
+  const data = JSON.stringify(json);
 
-  // send data to all clients in 'clients' object
-  for(let userId in clients) {
+  // send data to all clients in 'clients' object except yourself, so that you don't buzz yourself
+  for (let userId in clients) {
     let client = clients[userId];
-    if(client.readyState === WebSocket.OPEN) {
+    if (client != connection && client.readyState === WebSocket.OPEN) {
       client.send(data);
     }
-  };
-}
+  }
+};
 
 // handle updates in 'messages'
 const handleMessage = (message, userId, connection) => {
@@ -120,14 +122,14 @@ const handleMessage = (message, userId, connection) => {
     msg = dataFromClient.content;
     json.data = { msg, color: dataFromClient.color }; // assign color k-v pair to json.data
   }
-  broadcastMessage(json);
-}
+  broadcastMessage(json, connection);
+};
 
 // handle user disconnections
 const handleDisconnect = (userId) => {
   console.log(`${userId} disconnected.`);
   delete clients[userId];
-}
+};
 
 // handle client connection requests
 wsServer.on('connection', (connection) => {
@@ -137,6 +139,6 @@ wsServer.on('connection', (connection) => {
   clients[userId] = connection; // store new connection in 'clients' object
   console.log(`${userId} connected.`);
 
-  connection.on('message', (message) => handleMessage(message, userId)); // listen for events
+  connection.on('message', (message) => handleMessage(message, userId, connection)); // listen for events
   connection.on('close', () => handleDisconnect(userId)); // listen for user disconnections
 });
