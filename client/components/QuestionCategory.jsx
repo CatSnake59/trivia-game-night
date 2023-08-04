@@ -1,7 +1,7 @@
 import React from 'react';
 import QuestionCard from './QuestionCards';
 
-function QuestionCategory({ category, questions }) {
+const QuestionCategory = ({ category, questions }) => {
   return (
     <div className="question-category">
       <h2>{category}</h2>

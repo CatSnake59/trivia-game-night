@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import StickyBox from 'react-sticky-box'
 import QuestionCard from './QuestionCards';
 import Question from './Question';
-import '../Styles/Quiz.css'; // Import the CSS file for the Quiz component
-// import backgroundImage from '../assets/background.jpg'
+import '../Styles/Quiz.css';
 import Scoreboard from './Scoreboard';
 import WinCondition from './Wincondition';
 import FurretLoadingScreen from './FurretLoadingScreen';
 import WebSocketDemo from './WSSDemo'
-// import ResetQuiz from './ResetQuiz'
 
+// helper function: control font size
 const getFontSize = (textLength) => {
   if (textLength < 15) return '30px';
   if (textLength > 25) return '25px';
@@ -17,35 +17,34 @@ const getFontSize = (textLength) => {
   if (textLength > 55) return '18px';
 };
 
-function Quiz({ user, setUser }) {
-  console.log('quiz -----------------------------------------------');
-  console.log('USER HERE', user);
-  const navigate = useNavigate();
-  // States
-  const [playerTurn, setPlayerTurn] = useState(1);
+const Quiz = ({ user, setUser }) => {
+  const navigate = useNavigate(); // control routing
+
+  // state variables
+  const [newGame, setNewGame] = useState(false);
   const [quizQuestions, setQuizQuestions] = useState([]);
   const [questionState, setQuestionState] = useState({});
   const [answeredQuestions, setAnsweredQuestions] = useState([]);
+  const [playerTurn, setPlayerTurn] = useState(1);
   const [player1Score, setPlayer1Score] = useState(0);
   const [player2Score, setPlayer2Score] = useState(0);
   const [hasWon, setHasWon] = useState(false);
-  const [newGame, setNewGame] = useState(false);
-  // Points
+
   const points = { easy: 1000, medium: 3000, hard: 5000 };
 
+  // reset game after win condition has been met (redirect to root path)
   const resetGame = () => {
-    console.log('reset game');
     setQuizQuestions([]);
     setQuestionState({});
     setAnsweredQuestions([]);
     setPlayer1Score(0);
     setPlayer2Score(0);
-    setHasWon(false); // change the type of state this is --> determine p1 p2 winner
+    setHasWon(false);
     setNewGame(true);
     navigate('/');
   };
 
-  // check if user won by checking every time score changes, redirect to /win
+  // check for winner (redirect to /win path)
   useEffect(() => {
     if (player1Score >= 10000) {
       setPlayerTurn(1);
@@ -58,15 +57,14 @@ function Quiz({ user, setUser }) {
     }
   }, [player1Score, player2Score]);
 
-  // const { sports, film, geography, music, television}  = quizQuestions;
-
+  // event handler: user clicks on question card (redirect to /card path)
   const handleQuestionClick = (question) => {
     setQuestionState(question);
     setAnsweredQuestions((prev) => [...prev, question.question]);
     navigate('/card');
   };
 
-  // INCREMENT SCORE (player is state of playerTurn)
+  // event handler: user clicks on answer card
   const handleAnswerClick = (question, answer, player) => {
     if (question.correct_answer === answer) {
       if (player === 1) {
@@ -77,36 +75,39 @@ function Quiz({ user, setUser }) {
     } else {
       alert('Wrong answer!');
     }
-    // this one's for John
-    player === 1 ? setPlayerTurn(2) : setPlayerTurn(1);
+    player === 1 ? setPlayerTurn(2) : setPlayerTurn(1); // swap player turn
     navigate('/');
   };
 
-  const handleDeleteAccount = () => {
-    fetch('/delete', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: user.username,
-      }),
-    })
-      .then(() => {
-        console.log(`account for ${user.username} has been deleted`);
-        localStorage.removeItem('triviaJwtToken');
-        setUser({});
-        navigate('/');
-      })
-      .catch((err) => console.error(err));
-  };
+  // event handler: user clicks on 'Delete Account'
+  const handleDeleteAccount = async () => {
+    try {
+      await fetch('/delete', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: user.username,
+        }),
+      });
+      console.log(`${user.username}'s account has been deleted from the database.`);
+      localStorage.removeItem('triviaJwtToken');
+      setUser({});
+      navigate('/');
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
+  // event handler: user clicks on 'Log Out'
   const handleLogOut = () => {
     localStorage.removeItem('triviaJwtToken');
     setUser({});
     navigate('/');
   };
-
+  
+  // fetch quiz questions from backend
   useEffect(() => {
     fetch('/questions')
       .then((response) => response.json())
@@ -119,24 +120,25 @@ function Quiz({ user, setUser }) {
         console.error('Error fetching quiz questions:', error);
       });
   }, [newGame]);
-  
 
   return Object.keys(quizQuestions).length ? (
     <div id="quiz">
       <header>
         <h1 className='welcomeMessage'>Welcome, {user.username}!</h1>
       </header>
-      <WebSocketDemo wsUser={user.username}/>
-      <main>
+
+      <StickyBox offsetTop={20} className='sticky'> 
+        <WebSocketDemo wsUser={user.username}/>
+      </StickyBox>
+
+      <main style={{minWidth: '80vw' }}>
         <nav id="scoreboard">
-
-            <Scoreboard score={player1Score} playerNumber={1} />
-            <Scoreboard score={player2Score} playerNumber={2} />
-
+          <Scoreboard score={player1Score} playerNumber={1} playerTurn={playerTurn}/>
+          <Scoreboard score={player2Score} playerNumber={2} playerTurn={playerTurn}/>
         </nav>
-        {/* conditionally load based on user actions. Either loads quizboard, win, or the selected card */}
+        {/* conditionally load routes based on user actions */}
         <Routes>
-          {/* {console.log('in routes', loading)} */}
+          {/* path: root */}
           <Route
             path='/'
             element={
@@ -151,12 +153,11 @@ function Quiz({ user, setUser }) {
                     </div>
                     {quizQuestions[category].map(
                       (question) =>
-                        // check if a question was already answered from the quizQuestions[category] array. If yes, then display empty card. If not, display card.
                         (!answeredQuestions.includes(question.question) && (
                           <QuestionCard
                             key={crypto.randomUUID()}
                             question={question}
-                            handleQuestionClick={handleQuestionClick} // passing down the handleQuestionClick to QuestionCard
+                            handleQuestionClick={handleQuestionClick}
                             setQuestionState={setQuestionState}
                           />
                         )) || <div className='question-card' />
@@ -167,6 +168,7 @@ function Quiz({ user, setUser }) {
             }
           />
 
+          {/* path: /card */}
           <Route
             path='/card'
             element={
@@ -179,6 +181,8 @@ function Quiz({ user, setUser }) {
               />
             }
           />
+          
+          {/* path: /win */}
           <Route
             path='/win'
             element={
@@ -191,6 +195,8 @@ function Quiz({ user, setUser }) {
           />
         </Routes>
       </main>
+      
+      {/* 'log out' & 'delete account' buttons */}
       <div className='quizButtons'>
         <button type='button' id='logOffBtn' onClick={handleLogOut}>
           LOG OUT
@@ -201,6 +207,7 @@ function Quiz({ user, setUser }) {
       </div>
     </div>
   ) : (
+    // furret loading screen
     <FurretLoadingScreen />
   );
 }

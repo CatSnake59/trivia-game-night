@@ -1,11 +1,13 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+
 .login {
   max-width: 400px;
-  margin: 35%;
+  margin: 37%;
   margin-top: 15%;
   padding: 20px;
   border: 0.5px solid #00337b;
   border-radius: 5px;
-  /* background-color: rgba(198, 109, 109, 0); */
+  background: radial-gradient(circle at 10% 20%, rgb(254, 255, 165) 0%, rgb(255, 232, 182) 90%);
   box-shadow: 0 0 10px #7bbdfffb, 0 0 20px #264bb8, 0 0 30px #4589ff;
 }
 
@@ -21,7 +23,7 @@
     0
   ); /* Set the alpha value to 0 for full transparency */
   color: #fff;
-  text-shadow: 0 0 10px #00aeff, 0 0 20px #0055ff, 0 0 30px #0088ff;
+  text-shadow: 0 0 10px #052f43, 0 0 20px #0055ff, 0 0 30px #0088ff;
 }
 
 .username,
@@ -53,4 +55,58 @@ button:hover {
 
 .createAcct {
   margin-top: 2em;
+}
+
+.loadingWord{
+  /* display: flex; */
+  position: relative;
+  font-family: "Poppins", sans-serif;
+}
+
+.loadingWord h1{
+  color: #fff;
+	font-size: 8em;
+	position: absolute;
+	transform: translate(-50%, -10%);
+}
+
+.loadingWord h1:nth-child(1) {
+	color: transparent;
+	-webkit-text-stroke: 2px rgb(233, 212, 52);
+}
+
+.loadingWord h1:nth-child(2) {
+	color: #003046;
+	animation: animate 4s ease-in-out infinite;
+}
+
+@keyframes animate {
+	0%,
+	100% {
+		clip-path: polygon(
+			0% 45%,
+			16% 44%,
+			33% 50%,
+			54% 60%,
+			70% 61%,
+			84% 59%,
+			100% 52%,
+			100% 100%,
+			0% 100%
+		);
+	}
+
+	50% {
+		clip-path: polygon(
+			0% 60%,
+			15% 65%,
+			34% 66%,
+			51% 62%,
+			67% 50%,
+			84% 45%,
+			100% 46%,
+			100% 100%,
+			0% 100%
+		);
+	}
 }

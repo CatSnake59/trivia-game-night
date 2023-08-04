@@ -1,7 +1,8 @@
 import React from 'react';
 
-function Scoreboard({ score, playerNumber, playerTurn }) {
+const Scoreboard = ({ score, playerNumber, playerTurn }) => {
   return (
+    // dynamically change styling for player div based on whose turn it is
     <div className={playerTurn === playerNumber ? 'scoreboard highlighted' : 'scoreboard'}>
       <h2 className="playerNumber">
         Player
