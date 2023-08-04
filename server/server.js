@@ -142,3 +142,4 @@ wsServer.on('connection', (connection) => {
   connection.on('message', (message) => handleMessage(message, userId, connection)); // listen for events
   connection.on('close', () => handleDisconnect(userId)); // listen for user disconnections
 });
+

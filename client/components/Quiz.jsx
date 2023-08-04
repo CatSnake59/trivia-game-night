@@ -129,8 +129,8 @@ const Quiz = ({ user, setUser }) => {
         <h1 className='welcomeMessage'>Welcome, {user.username}!</h1>
       </header>
 
-      <StickyBox offsetTop={20} className='sticky'>
-        <BuzzerButton wsUser={user.username} />
+      <StickyBox offsetTop={20} className='sticky'> 
+        <BuzzerButton wsUser={user.username}/>
       </StickyBox>
 
       <main style={{ minWidth: '80vw' }}>
