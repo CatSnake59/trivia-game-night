@@ -158,3 +158,9 @@ header > div {
 .welcomeMessage {
   padding: 30px;
 }
+
+.sticky {
+  align-self: flex-start;
+  margin-left: 25px;
+  z-index: 99;
+}

@@ -7,17 +7,19 @@ import Timer from './Time';
 const shuffleArray = (array) => {
   const shuffledArray = [...array];
 
- 
+  // randomize display of answers
   for (let i = shuffledArray.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
   }
+
   return shuffledArray;
 };
 
-function Question({ question, handleAnswerClick, points, playerTurn }) {
+const Question = ({ question, handleAnswerClick, points, playerTurn }) => {
   const [play, { stop }] = useSound(jeopardyMusic, { volume: 0.1 });
 
+  // control music
   useEffect(() => {
     play();
     return function cleanup() {
@@ -25,14 +27,11 @@ function Question({ question, handleAnswerClick, points, playerTurn }) {
     };
   }, [play, stop]);
 
-  // const handleBtnClick = () => {
-  // decode html text received from API
-  function decodeHtml(html) {
+  const decodeHtml = (html) => {
     const txt = document.createElement('textarea');
     txt.innerHTML = html;
     return txt.value;
   }
-  // }
 
   const answers = shuffleArray([question.correct_answer, ...question.incorrect_answers]);
 

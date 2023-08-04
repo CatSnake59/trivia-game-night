@@ -266,3 +266,9 @@ body {
   font-size: 12px;
   color: #4e4e4e;
 }
+
+button {
+
+	position: sticky;
+
+}

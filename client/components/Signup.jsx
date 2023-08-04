@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Styles/LoginStyles.css';
 
-export default function SignUp({ setLoggedIn }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const SignUp = ({ setLoggedIn }) => {
   const navigate = useNavigate();
 
+  // state variables
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  // event handler: user logs in
   const handleLogin = () => {
-    console.log('Type Username here', username);
-    console.log('Type Password here', password);
-    console.log('Button has been clicked to login');
     fetch('/log-in', {
       method: 'POST',
       headers: {
@@ -35,7 +35,8 @@ export default function SignUp({ setLoggedIn }) {
       })
       .catch((err) => console.error(err));
   };
-
+  
+  // event handler: user creates an account
   const handleCreateAccount = () => {
     fetch('/sign-up', {
       method: 'POST',
@@ -48,9 +49,9 @@ export default function SignUp({ setLoggedIn }) {
         location,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          res
+      .then((response) => {
+        if (response.ok) {
+          response
             .json()
             .then((data) => {
               localStorage.setItem('triviaJwtToken', data.jwtToken);
@@ -65,7 +66,7 @@ export default function SignUp({ setLoggedIn }) {
 
   return (
     <div className="login">
-      <h1 className="logTitle">Cat Snakes Trivia</h1>
+      <h1 className="logTitle">Cat Snake Trivia</h1>
       <div>
         <input
           className="username"
@@ -93,3 +94,5 @@ export default function SignUp({ setLoggedIn }) {
     </div>
   );
 }
+
+export default SignUp;

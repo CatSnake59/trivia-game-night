@@ -4,25 +4,21 @@ import SignUp from './components/Signup';
 import Quiz from './components/Quiz';
 import './Styles/App.css';
 
-
-
-
 const App = (props) => {
+  // state variables
   const [user, setUser] = useState({});
-  //loggedIn checks whether a user is logged in, Signup will change the state causing a rerender
   const [loggedIn, setLoggedIn] = useState(false);
-  //const [loading, setLoading] = useState(true);
 
-  //check for JWT on page load, if user has JWT, send them to start page
+  // check for JWT on page load
   useEffect(() => {
     const jwtToken = localStorage.getItem('triviaJwtToken');
     if(jwtToken){
       fetchUserData(jwtToken)
     }
-    // jwtToken ? fetchUserData(jwtToken) : setLoading(false);
     setLoggedIn(false);
   }, [loggedIn]);
 
+  // fetch user data from DB
   const fetchUserData = async (jwt) => {
     const user = await fetch('/verifyJwt', {
       headers: {
@@ -35,17 +31,12 @@ const App = (props) => {
     } else {
       localStorage.removeItem('triviaJwtToken');
     }
-    //setLoading(false);
   }
-
-  //if (loading) return null;
 
   return (
     <div>
       <Router>
         <Routes>
-          {/* <Route path="/*" element={<Quiz />}/> */}
-
           <Route path="/*" element={user.username ? <Quiz user={user} setUser={setUser} /> : <SignUp setLoggedIn={setLoggedIn} />}/>
         </Routes>
       </Router>
