@@ -4,7 +4,8 @@ import SignUp from './components/Signup';
 import Quiz from './components/Quiz';
 import './Styles/App.css';
 
-const App = (props) => {
+
+const App = () => {
   // state variables
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);

@@ -1,12 +1,9 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useSound from 'use-sound';
 import spongebob from '../assets/spongebob-fog-horn-made-with-Voicemod-technology.mp3';
-import { Navbar, NavbarBrand, UncontrolledTooltip } from 'reactstrap';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
-import { DefaultEditor } from 'react-simple-wysiwyg';
-import Avatar from 'react-avatar';
-import '../Styles/wssdemo.css';
 
+//Change to your own ws URL
 const WS_URL = 'ws://localhost:8000/ws';
 
 const isBuzzerEvent = (message) => {
@@ -14,7 +11,7 @@ const isBuzzerEvent = (message) => {
   return evt.type === 'buzzerevent';
 };
 
-const WebSocketDemo = ({ wsUser }) => {
+const BuzzerButton = ({ wsUser }) => {
   const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {
     onOpen: () => {
       console.log('WebSocket connection established.');
@@ -83,4 +80,4 @@ const Buzzer = ({ wsUser }) => {
   );
 };
 
-export default WebSocketDemo;
+export default BuzzerButton;

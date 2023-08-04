@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../Styles/QuestionCard.css';
+import '../Styles/QuestionCard.css';
 
 const QuestionCard = ({ question, handleQuestionClick }) => {
   const points = { easy: 1000, medium: 3000, hard: 5000 };

@@ -7,7 +7,7 @@ import '../Styles/Quiz.css';
 import Scoreboard from './Scoreboard';
 import WinCondition from './Wincondition';
 import FurretLoadingScreen from './FurretLoadingScreen';
-import WebSocketDemo from './WSSDemo';
+import BuzzerButton from './BuzzerButton';
 
 // helper function: control font size
 const getFontSize = (textLength) => {
@@ -129,8 +129,8 @@ const Quiz = ({ user, setUser }) => {
         <h1 className='welcomeMessage'>Welcome, {user.username}!</h1>
       </header>
 
-      <StickyBox offsetTop={20} className='sticky'>
-        <WebSocketDemo wsUser={user.username} />
+      <StickyBox offsetTop={20} className='sticky'> 
+        <BuzzerButton wsUser={user.username}/>
       </StickyBox>
 
       <main style={{ minWidth: '80vw' }}>
