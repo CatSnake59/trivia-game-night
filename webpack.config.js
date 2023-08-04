@@ -7,7 +7,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './build'),
-    // publicPath: ''
+    // publicPath: '/'
   },
   mode: process.env.NODE_ENV,
   module: {
@@ -32,8 +32,11 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(jpe?g|png|gif|svg|mp3)$/i, 
+        test: /\.(jpe?g|png|gif|svg|mp3|ico)$/i, 
         loader: 'file-loader',
+        // options: {
+        //   publicPath: 'assets',
+        // },
         // options: {
         //   name: '/public/icons/[name].[ext]'
         // }
@@ -63,6 +66,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './client/index.html',
+      favicon: './client/assets/furret-favicon.png'
     }),
   ],
   devtool: 'eval-source-map',
