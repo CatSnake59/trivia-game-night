@@ -1,0 +1,175 @@
+body {
+  /* background-color: #007bff; */
+  /* background-size: cover;
+  background-attachment: fixed; */
+  /* background-image: url('https://nextrestaurants.com/wp-content/uploads/2019/07/Restaurants-TriviaNights-Marketing.png'); */
+  background-repeat: no-repeat;
+  background: radial-gradient(
+    circle at 48.7%,
+    rgb(56, 113, 209) 2.9%,
+    rgb(38, 76, 140) 80.7%,
+    rgb(31, 63, 116) 1000%
+  );
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.jeopardy-board {
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(5, 1fr); /* 5 columns for categories */
+  grid-auto-rows: minmax(100px, auto);
+  gap: 15px;
+  width: 100%;
+  max-width: 1500px;
+  margin-top: 20px;
+  margin: auto;
+}
+
+.category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 28px;
+  border-radius: 10px;
+  background-color: rgb(233, 212, 52);
+  /* color: rgb(255, 255, 255); */
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  height: 100px;
+  min-width: 8em;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  color: black;
+  line-height: 1em;
+}
+
+.questions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 10px;
+  background-color: transparent;
+}
+
+.scoreboard {
+  /* max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgba(41, 52, 103, 0);
+  color: #fff;
+  text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc; */
+  background: linear-gradient(
+    109.6deg,
+    rgb(168, 152, 34) 5.2%,
+    rgb(233, 212, 52) 91.1%
+  );
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  border-radius: 10px;
+  width: 35%;
+  text-align: center;
+  /* text-shadow: 1px 1px 0px rgba(255, 255, 255, 1),
+    1px 1px 0px rgba(0, 0, 0, 0.15); */
+  margin: 0.66em 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.scoreboard.highlighted {
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  background: linear-gradient(
+    109.6deg,
+    rgb(207, 196, 129) 5.2%,
+    rgb(233, 212, 52) 91.1%
+  );
+  transform: scale(1.15);
+}
+
+.scoreboard h2 {
+  margin: 0;
+  font-size: 2em;
+  text-shadow: -1px 4px 0px rgba(0, 0, 0, 0.58);
+}
+
+.scoreboard .playerNumber {
+  margin-top: 0.35em;
+  font-size: 3.5em;
+}
+
+.scoreboard .score {
+  margin-bottom: 0.5em;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-shadow: -1px 4px 0px rgba(0, 0, 0, 0.58);
+}
+
+header > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.quizButtons {
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.quizButtons button {
+  display: flex;
+  width: 25%;
+  justify-content: center;
+}
+
+#logOffBtn {
+  border-radius: 5px;
+  /* margin-right: 10px; */
+  background-color: rgba(220, 220, 220, 0.8);
+  font-family: 'Rubik', sans-serif;
+}
+
+#logOffBtn:hover {
+  background-color: rgba(20, 20, 20, 0.8);
+  color: white;
+  cursor: pointer;
+}
+
+#deleteAcctBtn {
+  border-radius: 5px;
+  background-color: rgba(220, 220, 220, 0.8);
+  font-family: 'Rubik', sans-serif;
+  align-items: flex-end;
+}
+
+#deleteAcctBtn:hover {
+  background-color: rgb(255, 0, 0);
+  color: white;
+  cursor: pointer;
+}
+
+.hideCard {
+  display: none;
+}
+
+.furret {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.welcomeMessage {
+  padding: 30px;
+}
+
+.sticky {
+  align-self: flex-start;
+  margin-left: 25px;
+  z-index: 99;
+}
