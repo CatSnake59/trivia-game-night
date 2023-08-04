@@ -31,9 +31,7 @@ describe('Route integration', () => {
         expect(response._body.user.username).toEqual(userObj.username);
       });
       it('/delete deletes a user from the database', async () => {
-        const response = await request(server)
-          .delete('/delete')
-          .send(userObj);
+        const response = await request(server).delete('/delete').send(userObj);
         expect(response._body).toEqual(
           'You successfully deleted your account.'
         );
@@ -41,15 +39,3 @@ describe('Route integration', () => {
     });
   });
 });
-
-//RES.LOCALS.SECRET:
-// res.locals.secret = {
-//     jwtToken: jwtToken,
-//     user: {
-//       id: _id,
-//       username: username,
-//     },
-//   };
-
-//User information gets added to database on 'CREATE ACCOUNT'
-//

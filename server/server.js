@@ -96,21 +96,21 @@ const clients = {}; // manage client connections
 // event types
 const typesDef = {
   USER_EVENT: 'userevent',
-  BUZZER_EVENT: 'buzzerevent'
-}
+  BUZZER_EVENT: 'buzzerevent',
+};
 
 // broadcast message to all subscribers (clients)
 const broadcastMessage = (json) => {
-  const data = JSON.stringify(json)
+  const data = JSON.stringify(json);
 
   // send data to all clients in 'clients' object
-  for(let userId in clients) {
+  for (let userId in clients) {
     let client = clients[userId];
-    if(client.readyState === WebSocket.OPEN) {
+    if (client.readyState === WebSocket.OPEN) {
       client.send(data);
     }
-  };
-}
+  }
+};
 
 // handle updates in 'messages'
 const handleMessage = (message, userId, connection) => {
@@ -121,13 +121,13 @@ const handleMessage = (message, userId, connection) => {
     json.data = { msg, color: dataFromClient.color }; // assign color k-v pair to json.data
   }
   broadcastMessage(json);
-}
+};
 
 // handle user disconnections
 const handleDisconnect = (userId) => {
   console.log(`${userId} disconnected.`);
   delete clients[userId];
-}
+};
 
 // handle client connection requests
 wsServer.on('connection', (connection) => {

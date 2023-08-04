@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900');
 
 .login {
   max-width: 400px;
@@ -7,7 +7,11 @@
   padding: 20px;
   border: 0.5px solid #00337b;
   border-radius: 5px;
-  background: radial-gradient(circle at 10% 20%, rgb(254, 255, 165) 0%, rgb(255, 232, 182) 90%);
+  background: radial-gradient(
+    circle at 10% 20%,
+    rgb(254, 255, 165) 0%,
+    rgb(255, 232, 182) 90%
+  );
   box-shadow: 0 0 10px #7bbdfffb, 0 0 20px #264bb8, 0 0 30px #4589ff;
 }
 
@@ -57,56 +61,56 @@ button:hover {
   margin-top: 2em;
 }
 
-.loadingWord{
+.loadingWord {
   /* display: flex; */
   position: relative;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
-.loadingWord h1{
+.loadingWord h1 {
   color: #fff;
-	font-size: 8em;
-	position: absolute;
-	transform: translate(-50%, -10%);
+  font-size: 8em;
+  position: absolute;
+  transform: translate(-50%, -10%);
 }
 
 .loadingWord h1:nth-child(1) {
-	color: transparent;
-	-webkit-text-stroke: 2px rgb(233, 212, 52);
+  color: transparent;
+  -webkit-text-stroke: 2px rgb(233, 212, 52);
 }
 
 .loadingWord h1:nth-child(2) {
-	color: #003046;
-	animation: animate 4s ease-in-out infinite;
+  color: #003046;
+  animation: animate 4s ease-in-out infinite;
 }
 
 @keyframes animate {
-	0%,
-	100% {
-		clip-path: polygon(
-			0% 45%,
-			16% 44%,
-			33% 50%,
-			54% 60%,
-			70% 61%,
-			84% 59%,
-			100% 52%,
-			100% 100%,
-			0% 100%
-		);
-	}
+  0%,
+  100% {
+    clip-path: polygon(
+      0% 45%,
+      16% 44%,
+      33% 50%,
+      54% 60%,
+      70% 61%,
+      84% 59%,
+      100% 52%,
+      100% 100%,
+      0% 100%
+    );
+  }
 
-	50% {
-		clip-path: polygon(
-			0% 60%,
-			15% 65%,
-			34% 66%,
-			51% 62%,
-			67% 50%,
-			84% 45%,
-			100% 46%,
-			100% 100%,
-			0% 100%
-		);
-	}
+  50% {
+    clip-path: polygon(
+      0% 60%,
+      15% 65%,
+      34% 66%,
+      51% 62%,
+      67% 50%,
+      84% 45%,
+      100% 46%,
+      100% 100%,
+      0% 100%
+    );
+  }
 }

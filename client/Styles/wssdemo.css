@@ -7,195 +7,199 @@ body {
 }
 
 .account {
-	 height: 30vh;
-	 width: 100%;
-	 min-height: 20vh;
-	 display: flex;
-	 overflow-y: auto;
-   background: #eee;
+  height: 30vh;
+  width: 100%;
+  min-height: 20vh;
+  display: flex;
+  overflow-y: auto;
+  background: #eee;
 }
- .account.account--photo {
-	 background: #6fb9fb;
+.account.account--photo {
+  background: #6fb9fb;
 }
- .account.account--photo .account__card {
-	 background-color: rgba(0, 10, 16, 0.8);
-	 color: #fff;
+.account.account--photo .account__card {
+  background-color: rgba(0, 10, 16, 0.8);
+  color: #fff;
 }
- .account.account--photo .form__form-group-icon, .account.account--photo .form__form-group-button {
-	 background: transparent;
+.account.account--photo .form__form-group-icon,
+.account.account--photo .form__form-group-button {
+  background: transparent;
 }
- .account.account--photo .form__form-group-icon, .account.account--photo input:not(:last-child) {
-	 border-right: none;
+.account.account--photo .form__form-group-icon,
+.account.account--photo input:not(:last-child) {
+  border-right: none;
 }
- .account.account--photo .form__form-group-button, .account.account--photo input {
-	 border-left: none;
+.account.account--photo .form__form-group-button,
+.account.account--photo input {
+  border-left: none;
 }
- .account.account--photo .form__form-group-button.active {
-	 border-color: #eff1f5;
+.account.account--photo .form__form-group-button.active {
+  border-color: #eff1f5;
 }
- .account.account--photo .form__form-group-button.active svg {
-	 fill: #eee;
+.account.account--photo .form__form-group-button.active svg {
+  fill: #eee;
 }
- .account.account--photo input {
-	 color: #fff;
+.account.account--photo input {
+  color: #fff;
 }
- .account.account--photo input:focus {
-	 border-color: #eff1f5;
+.account.account--photo input:focus {
+  border-color: #eff1f5;
 }
- .account.account--photo p {
-	 color: #fff;
+.account.account--photo p {
+  color: #fff;
 }
- .account.account--photo .account__title {
-	 color: #fff;
+.account.account--photo .account__title {
+  color: #fff;
 }
- .account__wrapper {
-	 margin: auto;
-	 padding: 10px;
+.account__wrapper {
+  margin: auto;
+  padding: 10px;
 }
- .account__card {
-	 background-color: #fff;
-   margin: 30px auto auto auto;
-	 padding: 50px 60px;
-   width: 500px;
+.account__card {
+  background-color: #fff;
+  margin: 30px auto auto auto;
+  padding: 50px 60px;
+  width: 500px;
 }
- .account__profile {
-	 text-align: center;
+.account__profile {
+  text-align: center;
 }
- .account__btns {
-	 display: flex;
-	 width: calc(100% + 10px);
-	 margin: -10px 0 -20px -10px;
+.account__btns {
+  display: flex;
+  width: calc(100% + 10px);
+  margin: -10px 0 -20px -10px;
 }
- .account__btns a {
-	 margin: 10px 0 20px 10px;
-	 white-space: nowrap;
+.account__btns a {
+  margin: 10px 0 20px 10px;
+  white-space: nowrap;
 }
- .account__btn {
-	 width: 100%;
-	 margin-right: 0;
+.account__btn {
+  width: 100%;
+  margin-right: 0;
 }
- .account__avatar {
-	 height: 64px;
-	 width: 64px;
-	 border-radius: 50%;
-	 overflow: hidden;
+.account__avatar {
+  height: 64px;
+  width: 64px;
+  border-radius: 50%;
+  overflow: hidden;
 }
- .account__name {
-	 font-size: 11px;
-	 text-transform: uppercase;
-	 font-weight: 700;
-	 line-height: 15px;
-	 margin: 5px 0 5px 0px;
+.account__name {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 15px;
+  margin: 5px 0 5px 0px;
 }
- .account__sub {
-	 margin-top: 0;
-	 margin-bottom: 10px;
-	 color: #656262;
-	 font-size: 11px;
-	 line-height: 15px;
+.account__sub {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #656262;
+  font-size: 11px;
+  line-height: 15px;
 }
- .account__forgot-password {
-	 position: absolute;
-	 font-size: 11px;
-	 line-height: 15px;
-	 bottom: -18px;
-	 right: 0;
+.account__forgot-password {
+  position: absolute;
+  font-size: 11px;
+  line-height: 15px;
+  bottom: -18px;
+  right: 0;
 }
- .account__forgot-password a {
-	 color: #70bbfd;
+.account__forgot-password a {
+  color: #70bbfd;
 }
- .account__forgot-password a:hover {
-	 color: #3ea3fc;
-	 text-decoration: none;
+.account__forgot-password a:hover {
+  color: #3ea3fc;
+  text-decoration: none;
 }
- .form__form-group--forgot {
-	 margin-bottom: 40px;
+.form__form-group--forgot {
+  margin-bottom: 40px;
 }
- .account__or {
-	 text-align: center;
-	 margin-top: 35px;
-	 margin-bottom: 20px;
-	 position: relative;
+.account__or {
+  text-align: center;
+  margin-top: 35px;
+  margin-bottom: 20px;
+  position: relative;
 }
- .account__or:before, .account__or:after {
-	 content: "";
-	 height: 1px;
-	 width: calc(50% - 90px);
-	 background: #ddd;
-	 position: absolute;
-	 top: 10px;
+.account__or:before,
+.account__or:after {
+  content: '';
+  height: 1px;
+  width: calc(50% - 90px);
+  background: #ddd;
+  position: absolute;
+  top: 10px;
 }
- .account__or:before {
-	 left: 0;
+.account__or:before {
+  left: 0;
 }
- .account__or:after {
-	 right: 0;
+.account__or:after {
+  right: 0;
 }
- .account__social {
-	 text-align: center;
+.account__social {
+  text-align: center;
 }
- .account__social-btn {
-	 display: inline-block;
-	 height: 38px;
-	 width: 38px;
-	 border-radius: 5px;
-	 padding: 9px;
-	 margin-right: 10px;
-	 transition: all 0.3s;
-	 border: none;
+.account__social-btn {
+  display: inline-block;
+  height: 38px;
+  width: 38px;
+  border-radius: 5px;
+  padding: 9px;
+  margin-right: 10px;
+  transition: all 0.3s;
+  border: none;
 }
- .account__social-btn:last-child {
-	 margin-right: 0;
+.account__social-btn:last-child {
+  margin-right: 0;
 }
- .account__social-btn svg {
-	 fill: #fff;
-	 height: 20px;
-	 width: 20px;
+.account__social-btn svg {
+  fill: #fff;
+  height: 20px;
+  width: 20px;
 }
- .account__social-btn.account__social-btn--facebook {
-	 background: #4766a4;
+.account__social-btn.account__social-btn--facebook {
+  background: #4766a4;
 }
- .account__social-btn.account__social-btn--facebook:hover {
-	 background: #385080;
+.account__social-btn.account__social-btn--facebook:hover {
+  background: #385080;
 }
- .account__social-btn.account__social-btn--google {
-	 background: #c74d4d;
+.account__social-btn.account__social-btn--google {
+  background: #c74d4d;
 }
- .account__social-btn.account__social-btn--google:hover {
-	 background: #ab3636;
+.account__social-btn.account__social-btn--google:hover {
+  background: #ab3636;
 }
- .account__head {
-	 margin-bottom: 30px;
-	 padding-left: 10px;
-	 border-left: 4px solid #70bbfd;
+.account__head {
+  margin-bottom: 30px;
+  padding-left: 10px;
+  border-left: 4px solid #70bbfd;
 }
- .account__logo {
-	 font-weight: 700;
+.account__logo {
+  font-weight: 700;
 }
- .account__logo-accent {
-	 color: #70bbfd;
+.account__logo-accent {
+  color: #70bbfd;
 }
- .account__have-account {
-	 text-align: center;
-	 margin-top: 20px;
+.account__have-account {
+  text-align: center;
+  margin-top: 20px;
 }
- .account__have-account a {
-	 color: #70bbfd;
-	 transition: all 0.3s;
+.account__have-account a {
+  color: #70bbfd;
+  transition: all 0.3s;
 }
- .account__have-account a:hover {
-	 color: #3ea3fc;
-	 text-decoration: none;
+.account__have-account a:hover {
+  color: #3ea3fc;
+  text-decoration: none;
 }
- @media screen and (max-width: 520px) {
-	 .account__card {
-		 padding: 35px 30px;
-	}
+@media screen and (max-width: 520px) {
+  .account__card {
+    padding: 35px 30px;
+  }
 }
- @media screen and (max-width: 425px) {
-	 .account__btns {
-		 flex-wrap: wrap;
-	}
+@media screen and (max-width: 425px) {
+  .account__btns {
+    flex-wrap: wrap;
+  }
 }
 
 .form-control {
@@ -233,7 +237,7 @@ body {
   display: flex;
   border-radius: 50%;
   margin-right: 10px;
-  background: #FFF;
+  background: #fff;
 }
 
 .container-fluid {
@@ -253,7 +257,7 @@ body {
 
 .history-holder {
   width: 300px;
-  background: #FFF;
+  background: #fff;
   min-width: 300px;
   margin: 80px 0px 90px 15px;
   height: 100vh;
@@ -268,7 +272,5 @@ body {
 }
 
 button {
-
-	position: sticky;
-
+  position: sticky;
 }
